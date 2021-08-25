@@ -41,22 +41,20 @@
                                    <a class='anchor4product' href="${product.id}" >
                                    <div class="item-info-imagee">
                                          <div class="slider" id="${product.id}">
-                                     <ul class="slider__images" style="list-style:none;">
-                                        <c:forEach var="attachVoInStr" items="${product.attachListInGson}" varStatus="sta">
-                                          <script>
-                                             $(document).ready(function() {
-                                                productImgListFunction('<c:out value="${paymentList[status.index].attachListInGson[sta.index]}" />', '<c:out value="${paymentList[status.index].listAttach[sta.index].uuid}" />', '<c:out value="${paymentList[status.index].id}" />');
-                                             });
-                                          </script>                     
-                                    </c:forEach>
-                                    </ul>
-                                    </div>  
-                                       </div>
+		                                     <ul class="slider__images" style="list-style:none;">
+		                                        <c:forEach var="attachVoInStr" items="${product.attachListInGson}" varStatus="sta">
+		                                          <script>
+		                                             $(document).ready(function() {
+		                                                productImgListFunction('<c:out value="${paymentList[status.index].attachListInGson[sta.index]}" />', '<c:out value="${paymentList[status.index].listAttach[sta.index].uuid}" />', '<c:out value="${paymentList[status.index].id}" />');
+		                                             });
+		                                          </script>                     
+		                                    </c:forEach>
+		                                    </ul>
+		                                    </div>  
+                                   </div>
                                        <div class="item-info-text">
                                            <p>판매자 : ${post.writer.userId}</p>
                                            <p>상품명 : ${product.title}</p>
-                                           
-                                   
                                        </div>
                                        <input type="hidden" id="child" name="child" value="${paymentList[status.index].board.parentId}">
                                        <input type="hidden" id="boardId" name="boardId" value="${paymentList[status.index].board.id}">                              
@@ -71,22 +69,31 @@
                                <div class="item-order-numberr">
                                    <span>${paymentList[status.index].trade.tradeId}</span>
                                </div>
-                               <div class="item-order-amounttt">
-                               
-                                   <p>
+                               <div class="item-order-amountt" id="${status.index}">
                                    <script>
                                         $(document).ready(function() {
-                                        getConvertWons(${paymentList[status.index].trade.productFinalPrice}, '.item-order-amounttt');
+	                                        getConvertWons(${paymentList[status.index].trade.productFinalPrice}, '#${status.index}');
                                         });
                                  </script>
-                                   </p>
-                                   <p></p>
                                </div>
-                               <div class="item-order-statuss">
-                                   <p>구매확정</p>
-                                   <button>배송조회</button>
-                                   <button>후기작성</button>
-                               </div>
+                               
+                               <c:if test="${paymentList[status.index].trade.adminPermission  == 0}">
+								   <div class="item-order-statuss">
+	                                   <p>관리자 확인중</p>
+	                               </div>
+	                           </c:if>        
+                               <c:if test="${paymentList[status.index].trade.adminPermission  == 1}">
+	                               <div class="item-order-statuss">
+	                                   <p>구매확정</p>
+	                                   <button>배송조회</button>
+	                                   <button>후기작성</button>
+	                               </div>
+	                           </c:if>
+	                           <c:if test="${paymentList[status.index].trade.adminPermission  == 2}">
+	                               <div class="item-order-statuss">
+	                                   <p>관리자가 거래를 거절했습니다.</p>
+	                               </div>
+	                           </c:if>
                            </div>
                            <!-- end -->
                          </div>

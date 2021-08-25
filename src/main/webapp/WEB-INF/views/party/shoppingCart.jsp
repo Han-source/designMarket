@@ -26,8 +26,8 @@
             <div>
                <section class="order-informationn-table">
                     <div class="order-information-header">
-                        <div class="item-informationn info-top">상품정보</div>
-                        <div class="item-order-datee">판매자</div>
+                        <div class="item-shoppingCart-informationn cart-info-top">상품정보</div>
+                        <div class="item-order-product-name">판매자</div>
                         <div class="item-order-numberr">등록일</div>
                         <div class="item-order-amountt">상품금액</div>
                         
@@ -36,28 +36,25 @@
                         <div class="order-inforamtion-bottom">
                            <!-- start -->
                            <div class="order-info-wrapp">
-                               <div class="item-informationn info-bottom">
+                               <div class="item-shoppingCart-informationn info-bottom">
                                    <a class='anchor4product' href="${product.id}" >
                                    <div class="item-info-imagee" >
                                          <div class="slider" id="${product.id}" >
-                                     <ul class="slider__images"  style="list-style:none;">
-                                        <c:forEach var="attachVoInStr" items="${product.attachListInGson}" varStatus="sta">
-                                          <script>
-                                             $(document).ready(function() {
-                                               productImgListFunction('<c:out value="${shopCart[status.index].attachListInGson[sta.index]}" />', '<c:out value="${shopCart[status.index].listAttach[sta.index].uuid}" />', '<c:out value="${shopCart[status.index].id}" />');
-                                              });
-                                          </script>                      
-                                    </c:forEach>
-                                    </ul>
-                                    </div>  
+		                                    <ul class="slider__images"  style="list-style:none;">
+		                                       <c:forEach var="attachVoInStr" items="${product.attachListInGson}" varStatus="sta">
+		                                         <script>
+		                                            $(document).ready(function() {
+		                                              productImgListFunction('<c:out value="${shopCart[status.index].attachListInGson[sta.index]}" />', '<c:out value="${shopCart[status.index].listAttach[sta.index].uuid}" />', '<c:out value="${shopCart[status.index].id}" />');
+		                                             });
+		                                         </script>                      
+		                                   </c:forEach>
+		                                   </ul>
+		                                   </div>  
                                        </div>
                                        <div class="item-info-text">
-                                           
                                            <p>상품명 : ${product.title}</p>
-                                           
-                                   
                                        </div>
-                                       <input type="hidden" id="child" name="child" value="${shopCart[status.index].board.parentId}">
+                                       <input type="hidden" id="childId" name="child" value="${shopCart[status.index].board.parentId}">
                                        <input type="hidden" id="boardId" name="boardId" value="${shopCart[status.index].board.id}">                              
                                    </a>
                                </div>
@@ -67,12 +64,11 @@
                                <div class="item-order-numberr">
                            <span>${shopCart[status.index].registrationDate}</span>
                                </div>
-                               <div class="item-order-amounttt">     
-                                                             
+                               <div class="item-order-amountt" id="${status.index}">     
                                     <span>
                                     <script>
                                     $(document).ready(function() {
-                                    getConvertWons(${shopCart[status.index].product.productPrice}, '.item-order-amounttt');
+                                    	getConvertWons(${shopCart[status.index].product.productPrice}, '#${status.index}');
                                     });
                            </script>
                                     
@@ -184,10 +180,10 @@
       e.preventDefault();
       var productId = $(this).attr('href');
       var as =  $('#boardId').val();
-      var asb =  $(this).children('input#child').val();
+      var asb =   $(this).children('#childId').val() 
       frmSearching.append("<input name='productId' type='hidden' value='" + productId + "'>"); // 문자열을 끝내고 이어받아서 return값 호출
       frmSearching.append("<input name='boardId' type='hidden' value='" + $('#boardId').val() + "'>"); // 문자열을 끝내고 이어받아서 return값 호출
-      frmSearching.append("<input name='child' type='hidden' value='" + $(this).children('input#child').val() + "'>"); // 문자열을 끝내고 이어받아서 return값 호출
+      frmSearching.append("<input name='child' type='hidden' value='" + $(this).children('input#childId').val() + "'>"); // 문자열을 끝내고 이어받아서 return값 호출
       frmSearching.attr('action', '/business/readProduct');
       frmSearching.attr('method', 'get');
       frmSearching.submit();

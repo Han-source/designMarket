@@ -49,9 +49,11 @@
 					</div>
 					
 					<div class="divInline">
-						<button type="button" id="findPost" onclick="execPostcode();">우편번호 찾기</button><br>
-						<div class="divInline" style="width: 120px;"><button class="btn btn-info" id="addrChange">주소지 변경</button></div>
-						<div class="divInline" style="width: 120px;"><button class="btn btn-info" id="lastAddrChange">변경하기</button></div>
+						<button class="btn btn-info" type="button" id="findPost" onclick="execPostcode();">우편번호 찾기</button><br>
+						<div class="divInline" style="width: 120px;">
+							<button class="btn btn-info" id="addrChange">주소지 변경</button>
+							<button class="btn btn-info" id="lastAddrChange">변경하기</button>
+						</div>
 						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 					        <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer"
 					            style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()"
@@ -63,15 +65,27 @@
 				
 				<div class="form-group">
 					<div class="divInline" style="margin-right: 10%;"><label>휴대폰 번호</label></div>
-					<div class="divInline"><span class="spanLabel">${party[0].listContactPoint[1].info}</span></div>
-					<div class="divInline"><button class="btn btn-info">핸드폰 번호 변경</button></div>
+					<div class="divInline">
+						<span id="originalMobileNum" class="spanLabel">${party[0].listContactPoint[1].info}</span>
+						<input name="info" id="mobileNum" placeholder="핸드폰 번호를 입력하세요">
+					</div>
+					<div class="divInline">
+						<button class="btn btn-info" id="mobileNumChage">핸드폰 번호 변경</button>
+						<button class="btn btn-info" id="lastMobileNumChage">변경하기</button>
+					</div>
 				</div>
 				<hr>
 				
 				<div class="form-group">
 					<div class="divInline" style="margin-right: 10%;"><label>집 전화 번호</label></div>
-					<div class="divInline"><span class="spanLabel">${party[0].listContactPoint[2].info}</span></div>
-					<div class="divInline"><button class="btn btn-info">집전화 번호 변경</button></div>
+					<div class="divInline">
+						<span id="originalPhoneNum" class="spanLabel">${party[0].listContactPoint[2].info}</span>
+						<input name="info" id="PhoneNum" placeholder="집 전화 번호를 입력하세요">
+					</div>
+					<div class="divInline">
+						<button class="btn btn-info" id="phoneNumChage">집전화 번호 변경</button>
+						<button class="btn btn-info" id="lastPhoneNumChage">변경하기</button>
+					</div>
 				</div>
 				<hr>
 				
@@ -84,6 +98,14 @@
 			</form>
 
 			<form id="chageUserAddr" method="post" action="/party/modifyMember">	
+				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+			</form>
+
+			<form id="chageUserMobileNum" method="post" action="/party/modifyMember">	
+				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+			</form>
+
+			<form id="chageUserPhoneNum" method="post" action="/party/modifyMember">	
 				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
 			</form>
 
@@ -128,6 +150,7 @@ $('#btnCloseModal').on("click", function(){
 	modalChangeUserName.modal("hide");
 })
 
+//사용자 이름 변경하기
 $('#btnModifyUserName').on("click", function(){
 	if($('#changeName').val() == ""){
 		alert('이름을 입력해 주세요');
@@ -138,6 +161,7 @@ $('#btnModifyUserName').on("click", function(){
 	modalChangeUserName.modal("hide");
 })
 
+//비밀번호 변경하기
 $('#pwdChange').on("click", function(){
 	if($('#userPwdCheck').val() == ""){
 		alert('비밀번호를 입력해주세요');
@@ -146,17 +170,45 @@ $('#pwdChange').on("click", function(){
 	$('#chageUserPwd').append("<input name='userPwd' type='hidden' value='" + $('#userPwdCheck').val() + "'>");
 	$('#chageUserPwd').submit();
 })
-
+//주소지 변경하기
 $('#lastAddrChange').on("click", function(){
-	if($('#userPwdCheck').val() == ""){
-		alert('비밀번호를 입력해주세요');
+	if($('#address').val() == ""){
+		alert('주소를 입력해 주세요');
 		return;
 	}
-	$('#chageUserPwd').append("<input name='userPwd' type='hidden' value='" + $('#userPwdCheck').val() + "'>");
-	$('#chageUserPwd').submit();
+	if($('#detailAddress').val() == ""){
+		alert('상세 주소를 입력해 주세요');
+		return;
+	}
+	$('#chageUserAddr').append("<input name='info' type='hidden' value='" + $('#address').val() + "'>");
+	$('#chageUserAddr').append("<input name='info' type='hidden' value='" + $('#detailAddress').val() + "'>");
+	$('#chageUserAddr').append("<input name='contactPointType' type='hidden' value='address'>");
+	$('#chageUserAddr').submit();
+})
+//핸드폰 번호 변경하기
+$('#lastMobileNumChage').on("click", function(){
+	if($('#mobileNum').val() == ""){
+		alert('전화번호를 입력해주세요');
+		return;
+	}
+	$('#chageUserMobileNum').append("<input name='info' type='hidden' value='" + $('#mobileNum').val() + "'>");
+	$('#chageUserMobileNum').append("<input name='contactPointType' type='hidden' value='mobileNum'>");
+	$('#chageUserMobileNum').submit();
+})
+
+//집전화 번호 변경하기
+$('#lastPhoneNumChage').on("click", function(){
+	if($('#PhoneNum').val() == ""){
+		alert('전화번호를 입력해주세요');
+		return;
+	}
+	$('#chageUserPhoneNum').append("<input name='info' type='hidden' value='" + $('#PhoneNum').val() + "'>");
+	$('#chageUserPhoneNum').append("<input name='contactPointType' type='hidden' value='PhoneNum'>");
+	$('#chageUserPhoneNum').submit();
 })
 
 
+//우편번호 변경하기 눌렀을때
 $('#addrChange').on("click", function() {
 	$('#postcode').show();
 	$('#address').show();
@@ -167,12 +219,39 @@ $('#addrChange').on("click", function() {
 	$('#originalAddr').hide();
 })
 
+//핸드폰 번호 바뀌기 눌렀을때
+$('#mobileNumChage').on("click", function() {
+	$('#mobileNum').show();
+	$('#lastMobileNumChage').show();
+	   
+	$('#mobileNumChage').hide();
+	$('#originalMobileNum').hide();
+})
+
+//집 전화 번호 바뀌기 눌렀을때
+$('#phoneNumChage').on("click", function() {
+	$('#PhoneNum').show();
+	$('#lastPhoneNumChage').show();
+	   
+	$('#phoneNumChage').hide();
+	$('#originalPhoneNum').hide();
+})
+
    $(document).ready(function() {
+	   //주소 관련
 	   $('#postcode').hide();
 	   $('#address').hide();
 	   $('#detailAddress').hide();
 	   $('#findPost').hide();
 	   $('#lastAddrChange').hide();
+	   
+	   //핸드폰 번호 관련
+	   $('#mobileNum').hide();
+	   $('#lastMobileNumChage').hide();
+	   
+	   //집 전화 번호 관련
+	   $('#PhoneNum').hide();
+	   $('#lastPhoneNumChage').hide();
 	   
    	var csrfHN = "${_csrf.headerName}";
        var csrfTV = "${_csrf.token}";

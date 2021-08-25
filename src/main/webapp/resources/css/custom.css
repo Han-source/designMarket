@@ -1037,9 +1037,29 @@ a.buttonLogin:hover {
 .item-informationn{
   flex: 3 0 0;
 }
+
+/* .cart-info-top{ */
+/* 	margin-left: 5%; */
+/* } */
+
+.item-shoppingCart-informationn{
+  flex: 1 0 0;
+}
+
 .item-order-datee{
   flex: 1 0 0;
 }
+
+.item-order-product-name{
+  flex: 1 0 0;
+/*   margin-left: 3%; */
+/*   margin-right: 5%; */
+}
+
+.item-order-product-reg-dt{
+  flex: 2 0 0;
+}
+
 .item-order-numberr{
   flex: 2 0 0;
 }

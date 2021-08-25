@@ -86,6 +86,7 @@ public class BusinessController {
 		model.addAttribute("boardId", 4);
 		model.addAttribute("boardName", boardService.getBoard(4).getName());
 		model.addAttribute("boardList", boardService.getList());
+		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 		model.addAttribute("page", userCriteria);
 		List<PostVO> a = postService.getMyPaymentList(4, curUser.getUserId(), userCriteria);
 		model.addAttribute("paymentList", postService.getMyPaymentList(4, curUser.getUserId(), userCriteria));
@@ -130,6 +131,7 @@ public class BusinessController {
 		model.addAttribute("boardId", 4);
 		model.addAttribute("boardName", boardService.getBoard(4).getName());
 		model.addAttribute("boardList", boardService.getList());
+		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 		model.addAttribute("page", userCriteria);
 		model.addAttribute("productUploaded", postService.getMyProductUploaded(4, curUser.getUserId(), userCriteria));
 		model.addAttribute("sellChart", businessService.selledChart(curUser.getUserId()));

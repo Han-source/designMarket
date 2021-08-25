@@ -150,6 +150,30 @@
 		set user_pwd = #{user.userPwd}
 		where user_id = #{user.userId}
 	</update>
+	<!-- public void changeUserAddr(@Param("user") Member newBie, @Param("cp") ContactPoint cp); -->
+	<update id="changeUserAddr">
+		update s_contact_point
+		set info = #{cp.info}, upt_dt = sysdate
+		where user_id = #{user.userId}
+		and contact_point_type = 'address'
+	</update>
+	
+	<!-- public void changeUserMobileNum(@Param("user") Member newBie, @Param("cp") ContactPoint cp); -->
+	<update id="changeUserMobileNum">
+		update s_contact_point
+		set info = #{cp.info}, upt_dt = sysdate
+		where user_id = #{user.userId}
+		and contact_point_type = 'phoneNum'
+	</update>
+	
+	<!-- public void changeUserPhoneNum(@Param("user") Member newBie, @Param("cp") ContactPoint cp); -->
+	<update id="changeUserPhoneNum">
+		update s_contact_point
+		set info = #{cp.info}, upt_dt = sysdate
+		where user_id = #{user.userId}
+		and contact_point_type = 'mobileNum'
+	</update>
+	
 	
 	<!-- ################################### 사용자 권한 관련 ############################## -->
 	<resultMap type="www.dream.com.party.model.partyOfAuthVO"

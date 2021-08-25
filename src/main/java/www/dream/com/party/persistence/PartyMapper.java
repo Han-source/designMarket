@@ -60,7 +60,17 @@ public interface PartyMapper { // 13. persistence package에 PartyMapper interfa
 
 	// 회원 비밀번호 변경 처리
 	public void changeUserPwd(@Param("user") Member newBie);
+	
+	// 회원 주소 변경 처리
+	public void changeUserAddr(@Param("user") Member newBie, @Param("cp") ContactPoint cp);
 
+	// 회원 핸드폰번호 변경 처리
+	public void changeUserMobileNum(@Param("user") Member newBie, @Param("cp") ContactPoint cp);
+
+	// 회원 집전화번호 변경 처리
+	public void changeUserPhoneNum(@Param("user") Member newBie, @Param("cp") ContactPoint cp);
+
+	
 	// 권한 처리 관련 영역
 	public partyOfAuthVO getMemberType();
 

@@ -47,8 +47,22 @@ public class PartyService implements UserDetailsService { // 1. 순서가 의미
 	public void changeUserPwd(Member newBie) {
 		partyMapper.changeUserPwd(newBie);
 	}
+	// 회원 주소 변경 처리
+	public void changeUserAddr(Member newBie, ContactPoint cp) {
+		partyMapper.changeUserAddr(newBie, cp);
+	}
+	
+	// 회원 핸드폰번호 변경 처리
+	public void changeUserMobileNum(Member newBie, ContactPoint cp) {
+		partyMapper.changeUserMobileNum(newBie, cp);
+	}
 
+	// 회원 집전화번호 변경 처리
+	public void changeUserPhoneNum(Member newBie, ContactPoint cp) {
+		partyMapper.changeUserPhoneNum(newBie, cp);
+	}
 
+	
 	// 사용자 회원 탈퇴
 	public void deleteId(Party party) {
 		partyMapper.deleteId(party);
