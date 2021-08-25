@@ -149,6 +149,7 @@
          where p.writer_id = w.user_id
          and sp.selled = 0
          and p.product_id = sp.product_id
+         order by id desc
    </select>   
 
 <!-- public ProductVO findProductById(@Param("productId") String id, @Param("child") int child);  -->

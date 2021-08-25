@@ -48,7 +48,7 @@
                    
                    <div class="registration_date">
                        <span>등록일</span>
-                       <span>2021-08-09</span>
+                       <span>${post.registrationDate}</span>
                    </div>                                     
                    <div class="aution_time_remaining">
                        <span id="auctionTimer"></span>

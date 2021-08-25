@@ -165,7 +165,9 @@ public class BusinessController {
 					businessService.findShoppingCartByUserIdAndProductId(curUser.getUserId(), productId));
 		}
 		model.addAttribute("boardList", boardService.getList());
+		PostVO b = replyService.findProductById(productId, child);
 		model.addAttribute("post", replyService.findProductById(productId, child));
+		ProductVO a = businessService.findPriceById(productId);
 		model.addAttribute("product", businessService.findPriceById(productId));
 		model.addAttribute("condition", businessService.findAuctionPriceById(productId));
 		model.addAttribute("auctionParty", businessService.findAuctionPartyById(productId));
