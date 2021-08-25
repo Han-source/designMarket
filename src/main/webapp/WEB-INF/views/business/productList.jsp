@@ -53,12 +53,6 @@ input ::-webkit-input-placeholder {
    width: 1200px;
 }
 
-/* 상품등록버튼 class css */
-.btn_pro{
-   width: 200px;
-   height: 42px;
-   float: right;
-} 
 </style>
 
    <!-- DataTales Example -->
@@ -95,7 +89,7 @@ input ::-webkit-input-placeholder {
                         <input type="text" name='searching' value="${page.searching}" placeholder="상품, 내용을 검색해보세요">
                          <span class="icon"  id="btnSearch" style="margin-left: -30px;"><i class="fa fa-search"></i></span>
                         
-                            <button type="button" id="btnRegisterProduct" class="btn_pro" >상품등록</button>
+                            <button type="button" id="btnRegisterProduct" class="productBtn" >상품등록</button>
                         </div>
                      <input type="hidden" name="boardId" value="${boardId}">
                      <input type="hidden" name="child" value="${child}">
