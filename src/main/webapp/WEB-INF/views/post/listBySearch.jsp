@@ -7,91 +7,156 @@
 
 <!-- TableHeader에 정의된 static method를 사용하기 위해 정의함 -->
 <jsp:useBean id="tablePrinter" class="www.dream.com.framework.printer.TablePrinter"/>
+<style>
+  table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+  }
+  .searching_box{
+   width: 900px;
+}
+  
+/* input text css 건드리기 */
+input[type=text]{
+   font-size: 15px;
+   width: 400px;
+   padding: 10px;
+   border: 0px;
+   outline: none;
+   float: center;
+}
 
+
+/* input text안에 image를 넣을 생각을 하는중 */
+
+input[type=button]{
+      width: 50px;
+      height: 42px;
+      border: 0px;
+      background: #1b5ac2;
+      outline: none;
+      color: #aaaaaa;
+      font-size: 14px; 
+      float: center;
+      margin-left: -50px;
+      
+    }
+    
+ /* 검색 전 보여주는 placeholder 글씨 색상 조절 크롬에서 */
+input ::-webkit-input-placeholder { 
+  color: red;
+  }
+  /* input tag를 넣는 div 값 */
+.searching_box{
+   width: 420px;
+}
+</style>
 <!-- End of Topbar -->
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
    <!-- DataTales Example -->
    <p>
-   <div class="card shadow mb-4">
-      <div class="card-header py-3">
-         <h6 class="m-0 font-weight-bold text-primary">${boardName}글목록</h6>
+   <div >
+      <div style="margin-left: 20%;">
+         <h3>${boardName}</h3>
       </div>
-      <div class="card-body">
-         <!-- Paging 이벤트에서 서버로 요청보낸 인자들을 관리합니다. -->
-         <form id="frmSearching" action="/post/listBySearch" method="get">
-            <!--  정렬 방식 -->
+      <div style="margin: 0 auto; width: 60%;">
+      	<hr style="border: solid 2px #B0C4DE;"/>
+      </div>
       
-            <input type="text" name="searching" value="${pagination.searching}" />
-            <button id="btnSearch" class="btn btn-default">검색</button>
-            <!-- c: if 조건문으로, descrim이 관리자인지, 공지사항, faq 의 boardId(1,2) => 이 두조건이 해당할때만 열어줌 -->
-           <c:choose>    
-               <c:when test="${descrim eq 'User' and boardId eq 3}">
-                   <button id="btnRegisterPost" class="btn btn-primary">글쓰기</button>
-               </c:when>
-               <c:when test="${descrim eq 'Admin'}">
-                   <button id="btnRegisterPost" class="btn btn-primary">글쓰기</button>
-                   <button id="btnBatchDeletePost" class="btn btn-info">일괄삭제</button>
-               </c:when>
-           </c:choose>
-            <input type="hidden" name="boardId" value="${boardId}">
-            <input type="hidden" name="child" value="${child}">
-            <input type="hidden" name="pageNumber" value="${pagination.pageNumber}">
-            <input type="hidden" name="amount" value="${pagination.amount}">
-            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
-            <input type="hidden" name="ListFromLike" value="1">
-         </form>
-   	   	 <form id="frmLikeRank" action="/post/listBySearch" method="get">
-         <input type="hidden" name="boardId" value="${boardId}">
-            <input type="hidden" name="child" value="${child}">
-            <input type="hidden" name="pageNumber" value="${pagination.pageNumber}">
-            <input type="hidden" name="amount" value="${pagination.amount}">
-            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
-            <input type="hidden" name="ListFromLike" value="1">
-         </form>	
-   			
-         <br> <a href="/">메인으로</a>
-         <a href="/post/listBySearch?boardId=3&child=0"> 전체글</a>
-         <a><button id="btnRankingLike" class="btn btn-default">개념글</button></a>
-
-         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <div>
+      	<div style="margin-left: 40%;">
+	         <!-- Paging 이벤트에서 서버로 요청보낸 인자들을 관리합니다. -->
+	         <form id="frmSearching" action="/post/listBySearch" method="get">
+	            <!--  정렬 방식 -->
+	            <div>
+	            	<div style="width: 630px;">
+		            <div class="searching_box" style="border: 1px solid black; border-radius: 2px; width: 430px; margin: 0px; display: inline-block;">
+			            <input type="text" name="searching" placeholder="내용을 검색해보세요" value="${pagination.searching}" />
+	                    <span class="icon"  id="btnSearch" style="margin-left: -30px;"><i style="width: 20px; height: 20px;" class="fa fa-search"></i></span>
+	                    </div>
+				           <c:choose>    
+				               <c:when test="${descrim eq 'User' and boardId eq 3}">
+				                   <button id="btnRegisterPost" class="btn btn-default" style="float: right; vertical-align: top;"><i class="fas fa-pen-square"></i></button>
+				               </c:when>
+				               <c:when test="${descrim eq 'Admin'}">
+				                   <button id="btnRegisterPost" class="btn btn-default"><i class="fas fa-pen-square"></i></button>
+				                   <button id="btnBatchDeletePost" class="btn btn-info">일괄삭제</button>
+				               </c:when>
+				           </c:choose>
+	                 </div>
+	            </div>
+	            <!-- c: if 조건문으로, descrim이 관리자인지, 공지사항, faq 의 boardId(1,2) => 이 두조건이 해당할때만 열어줌 -->
+	            <input type="hidden" name="boardId" value="${boardId}">
+	            <input type="hidden" name="child" value="${child}">
+	            <input type="hidden" name="pageNumber" value="${pagination.pageNumber}">
+	            <input type="hidden" name="amount" value="${pagination.amount}">
+	            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+	            <input type="hidden" name="ListFromLike" value="0">
+	         </form>
+	         
+	   	   	 <form id="frmLikeRank" action="/post/listBySearch" method="get">
+	         <input type="hidden" name="boardId" value="${boardId}">
+	            <input type="hidden" name="child" value="${child}">
+	            <input type="hidden" name="pageNumber" value="${pagination.pageNumber}">
+	            <input type="hidden" name="amount" value="${pagination.amount}">
+	            <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
+	            <input type="hidden" name="ListFromLike" value="1">
+	         </form>	
+	   			
+		</div>
+        <div style="margin-left: 18%;">
+	         <a href="/post/listBySearch?boardId=3&child=0"><button class="btn btn-info">전체글</button></a>
+	         <a><button id="btnRankingLike" class="btn btn-info">개념글</button></a>
+		</div>
+		<div style="width: 100%;"><p></p></div>
+		
+		<div style="width: 100%; height: 100px;">
+		<div class="sideImageBanner" style="width: 10%; float: left; margin-right: 3%; margin-left: 5%;">
+<p></p>
+         </div>
+         <div style="width: 60%; float: left;">
+            <table id="dataTable" width="100%" cellspacing="0">
                <thead>
                   <tr>
-                     <td id="noneAdmin" >선택</td>
+                     <th id="noneAdmin">선택</th>
                   <%= tablePrinter.printHeader(PostVO.class) %>  
                   </tr>
                </thead>
                
                <tbody>
                   <c:forEach items="${listPost}" var="post">
-                     <tr>
+                     <tr class="anchor4post" id="${post.id}">
                      <c:choose>
                            <c:when test="${empty post.listAttach}" >
-                              <td id="noneAdmin1">
                                 <c:if test="${descrim eq 'Admin'}">
-                                    <input type="checkbox" name="chkpost"  id="chkposts" value="${post.id}">
+	                              <td id="noneAdmin1" style="text-align: center;" onclick="event.cancelBubble=true">
+                                    <input type="checkbox" name="chkpost" id="chkposts" value="${post.id}">
+	                              </td>
                               </c:if>
+                              <td style="text-align: left;"><i class="far fa-comment-dots" style="margin-right: 40%;"></i>${post.title}
                               </td>
-                              <td ><a class="anchor4post" href="${post.id}" >
-                                 <img src="\resources\img\noimg.png" style="width: 25px; height: 25px;">${post.title}</a>
-                              </td>
-                              <td>${post.writer.name}</td> 
-                              <td>${post.readCnt}</td>
-                              <td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${post.updateDate}" /></td>
+                              <td style="text-align: center;">${post.writer.name}</td> 
+                              <td style="text-align: center;">${post.readCnt}</td>
+                              <td style="text-align: center;"><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${post.updateDate}" /></td>
                           </c:when>
                           <c:otherwise>
-                            <td id="noneAdmin1">
                               <c:if test="${descrim eq 'Admin'}">
+	                            <td id="noneAdmin1" style="text-align: center;" onclick="event.cancelBubble=true">
                                     <input type="checkbox" name="chkpost" id="chkposts" value="${post.id}">
+ 	                            </td>
                               </c:if>
-                           </td>
-                              <td><a class="anchor4post" href="${post.id}"><img src="\resources\img\attachimg.png" style="width: 25px; height: 25px;">${post.title}</a>
+                              <td style="text-align: left;"><i class="far fa-images" style="margin-right: 40%;"></i>${post.title}
                               </td>
-                              <td>${post.writer.name}</td>
-                              <td>${post.readCnt}</td>
-                              <td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${post.updateDate}" /></td>
+                              <td style="text-align: center;">${post.writer.name}</td>
+                              <td style="text-align: center;">${post.readCnt}</td>
+                              <td style="text-align: center;"><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${post.updateDate}" /></td>
                           </c:otherwise>
                       </c:choose>
                      </tr>
@@ -127,6 +192,13 @@
             </div>
             <!-- /.modal -->
          </div>
+         
+         <div class="sideImageBanner" style="width: 10%; float: left; margin-left: 5%;">
+         	<img src="/resources/img/logos/sideBanner.png" style="height: 900px;">
+         </div>
+        </div>
+         
+         
       </div>
    </div>
 </div>
@@ -223,7 +295,7 @@ if (${descrim != 'User' and descrim != 'Admin'}){
          /* 특정 게시물에 대한 상세 조회 처리 */
          $('.anchor4post').on('click', function(e) {
             e.preventDefault();
-            var postId = $(this).attr('href');
+            var postId = $(this).attr('id');
             frmSearching.append("<input name='postId' type='hidden' value='" + postId + "'>");
             frmSearching.attr('action', '/post/readPost');
             frmSearching.attr('method', 'get');

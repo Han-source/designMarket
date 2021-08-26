@@ -19,20 +19,20 @@ h4 {
    
 }
 h3 {
-   font-family: 'Hanna';
+   font-family: 'Jeju Myeongjo';
    
 }
 h2 {
-   font-family: 'Hanna';
+   font-family: 'Jeju Myeongjo';
    
 }
 h1 {
-   font-family: 'Hanna';   
+   font-family: 'Jeju Myeongjo';   
 }
 /* 테이블 관련 디자인*/
 thead th {
-   background-color: #006DCC;
-   color: white;
+   background-color: #B0C4DE;
+   color: black;
    text-align: center;
 }
 tr td:first-child,

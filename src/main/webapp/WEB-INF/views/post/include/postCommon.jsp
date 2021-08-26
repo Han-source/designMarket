@@ -7,13 +7,7 @@
 <!-- 실 내용만 담을 postCommon.jsp -->
 <div class="form-group">
 	<input name="id" type="hidden" value="${post.id}" class="form-control" readonly>
-<!-- 여긴 중요한게, 객체를 만들어주는 부분이다. 제목을 넣는 부분 -->
 </div>
-
-	<!-- 수정 처리시(modify) title,content에는 readonly는 없어야 한다. -->
-	<!-- 신규 처리시 title,content에는 value가 없고 readonly도 없다.  -->
-	
-	<!-- 신규화면에서 필요한 것들,  -->
 <div class="form-group">
 	<label>제목</label> <input id="title" name="title" value="${post.title}" 	class="form-control" readonly>
 </div>
@@ -51,44 +45,6 @@
 	<label >, 수정일 : </label>
 	<fmt:formatDate pattern="yyyy-MM-dd" value="${post.updateDate}" />
 </div>
- <c:choose>
-	 	<c:when test="${boardId == 5}">
-				<div class="form-group">
-					<label>시작가격</label> <input type="number" id="autionStartPrice" name="autionStartPrice" value="${post.title}" 	class="form-control">
-				</div>
-				
-				<div class="form-group">
-					<label>종료가격</label> <input type="number" id="autionEndPrice" name="autionEndPrice" value="${post.title}" 	class="form-control">
-				</div>
-				
-				<div class="form-group">
-					<label>작성자id</label>
-					 <c:choose>
-					 	<c:when test="${empty post}">
-					 		<input value= '<sec:authentication property="principal.curUser.name"/>'	class="form-control">
-					 	</c:when>
-					 	<c:otherwise>
-					 		<input value="${post.writer.userId}" class="form-control" readonly>
-					 	</c:otherwise>
-					 </c:choose>
-				</div>
-				
-				<div class="form-group">
-	
-	
-					<label>시작시간 </label>
-					<input type="datetime-local" name="startTime" value="${post.startTime}" />
-					<label>종료 시간: </label>
-					<input type="datetime-local" name="endTime" value="${post.endTime}" />
-					
-				</div>
-				
-				<div class="form-group">
-					<label>즉시 구매가</label> <input id="immediatePurchasePrice" name="immediatePurchasePrice" value="${post.title}" 	class="form-control">
-				</div>
-	</c:when>
-</c:choose>
-
 
 <input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
 <input type='hidden' name='check' id="check" value='0'>
@@ -136,14 +92,11 @@
 	                     }else{
 	                        $('#check').val('1');
 	                     }
-	                     
 	                     //alert(data);
 	                     console.log(data);
 	                     $("#likecnt").html(data); 
 	                  }
-
 	               })
-	            
 	      });
 	   
 	   

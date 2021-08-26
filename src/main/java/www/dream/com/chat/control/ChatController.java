@@ -1,7 +1,6 @@
 package www.dream.com.chat.control;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.security.Principal;
 
 import javax.servlet.ServletException;

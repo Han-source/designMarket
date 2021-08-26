@@ -13,7 +13,7 @@ public class Criteria implements Comparable<Criteria>{
 	
 	//private static UriComponentsBuilder builder = UriComponentsBuilder.fromPath("");
 	
-	private static final float PAGINATION_TOTAL = 10;
+	private static final float PAGINATION_TOTAL = 20;
 	
 	/** 검색어 뭉치 "선수 재계약" */
 	private String searching; // Postmapper.xml에 추가해줄 검색 query의 시작 06.04
@@ -41,7 +41,7 @@ public class Criteria implements Comparable<Criteria>{
 	
 	public Criteria() { // Default 생성자도 만들어 줄 것
 		this.pageNumber = 1; // page 1쪽에 10개씩 , Total Page는 2100개로줄것, 내 Data건수가 22529개.
-		this.amount = 10;
+		this.amount = 20;
 	}
 	
 	public void setTotal(long total) {

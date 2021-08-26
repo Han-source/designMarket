@@ -6,13 +6,21 @@
 <%@include file="../includes/header.jsp"%>
 
 
-<!-- Begin Page Content -->
-<div class="container-fluid">
-    <p>
- 
-	<!-- DataTales Example -->
-	<div class="card shadow mb-4">
-		<div class="card-body">
+<div></div>
+   		<p>
+<div>
+<div style="margin-left: 20%;">
+         <h3>${boardName}</h3>
+      </div>
+      <div style="margin: 0 auto; width: 60%;">
+      	<hr style="border: solid 2px #B0C4DE;"/>
+      </div>
+	<div style="width: 100%; height: 100px;">
+	<div class="sideImageBanner" style="width: 10%; float: left; margin-right: 3%; margin-left: 5%;">
+		<p></p>
+    </div>
+		<div style="width: 60%; float: left;">
+			<div class="form-group">
 			<form id='frmPost' action="/post/modifyPost" method="post">
 				<%@ include file="./include/postCommon.jsp" %>
 				<%@ include file="../common/attachFileManagement.jsp"%>
@@ -38,8 +46,11 @@
 				<!-- HashTag에서는 앞선 Searching에서 사용한 요소인 keyword, type을 searching 하나로 대신함 06.07 -->
 				<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'>
 			</form>
-			
+			</div>
 		</div>
+		<div class="sideImageBanner" style="width: 10%; float: left; margin-left: 5%;">
+         	<img src="/resources/img/logos/sideBanner.png" style="height: 900px;">
+         </div>
 	</div>
 </div>
 <!-- /.container-fluid -->
@@ -78,6 +89,7 @@ $(document).ready(function() {
 			/* 속성 선택자 : 특정한 속성을 가지는 요소를 선택한다.
 			*/
 			var boardIdInput = frmPost.find("#boardId");
+			var child = frmPost.find("#child");
 			var pageNumber = $('input[name="pageNumber"]');
 			var amount = $('input[name="amount"]');
 			
@@ -89,6 +101,7 @@ $(document).ready(function() {
 			
 			frmPost.empty(); // $("#frmPost")를 비워내 버릴것
 			frmPost.append(boardIdInput);
+			frmPost.append(child);
 			// 수정에서 목록 버튼을 누르면, 다시 보고있던 목록 페이지로 돌아올 수 있게끔 값을 추가
 			frmPost.append(pageNumber);
 			frmPost.append(amount);

@@ -83,10 +83,13 @@ public class PostController {
 			curUser = cu.getCurUser();
 			model.addAttribute("userId", curUser.getUserId());
 		}
+		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("child", child);
 		model.addAttribute("post", postService.findPostById(id, child));
 		model.addAttribute("boardId", boardId);// 그래서 findPostById 함수에도 boardId를 하나더 추가 시켜 주자
+		model.addAttribute("boardName", boardService.getBoard(boardId).getName());
+
 		postService.cntPlus(id);// 조회수
 		// 그렇게 해야 remove쪽으로 던져줄 값이 하나 생긴다.
 	}
@@ -106,6 +109,9 @@ public class PostController {
 		model.addAttribute("boardList", boardService.getList());
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("child", child);
+		model.addAttribute("childBoardList", boardService.getChildBoardList(4));
+		model.addAttribute("boardName", boardService.getBoard(boardId).getName());
+
 	}
 
 	@PostMapping(value = "registerPost") // LCRUD 에서 Update 부분
@@ -154,7 +160,7 @@ public class PostController {
 	// RedirectAttributes를 이용한 삭제 방법(Post방식 이용) 0525 Start
 	@PostMapping(value = "removePost") // 재요청을 할때 다시 속성을 주는 것 LCRUD : Delete
 	@PreAuthorize("principal.username == #writerId") // #:내가 받은 인자
-	public String removePost(@RequestParam("boardId") int boardId, @RequestParam("postId") String id,
+	public String removePost(@RequestParam("boardId") int boardId, @RequestParam("postId") String id, @RequestParam("child") int child,
 			RedirectAttributes rttr, Criteria fromUser, String writerId) {
 		if (postService.deletePostById(id)) { // postService Class를 호출 해줘야 한다.
 			rttr.addFlashAttribute("result", "삭제처리가 성공");
